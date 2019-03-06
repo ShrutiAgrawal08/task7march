@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     EditText et1;
     EditText et2;
     Button btn;
+    String s1,s2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +24,13 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences sharedPreferences=getSharedPreferences("g.sh.task7march",MODE_PRIVATE);
+                String s_user=sharedPreferences.getString("username", "user");
+                String s_pass=sharedPreferences.getString("password", "");
                 String user =et1.getText().toString().trim();
                 String pass =et2.getText().toString().trim();
-                if(user.equals(s1)&& pass.equals(s2))
+                if(user.equals(s_user)&& pass.equals(s_pass))
                 {
                     Toast.makeText(MainActivity.this, "PAss", Toast.LENGTH_SHORT).show();
                 }
@@ -37,27 +42,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
         SharedPreferences sharedPreferences=getSharedPreferences("g.sh.task7march",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString("username","shruti.agrawal_mca18@gla.ac.in");
         editor.putString("password","123456");
         editor.putBoolean("bool",true);
         editor.apply();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sharedPreferences=getSharedPreferences("g.sh.task7march",MODE_PRIVATE);
-        String s1=sharedPreferences.getString("shruti.agrawal_mca18@gla.ac.in","username");
-        String s2=sharedPreferences.getString("123456","password");
-        Boolean remeber=sharedPreferences.getBoolean("bool",false);
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        et1.setText(s1);
-        et2.setText(s2);
     }
 }
